@@ -37,14 +37,18 @@ public class main {
 				currentPlayer.playerHand.add(deck.drawTopCard());
 				
 			} else {
+
+				if(deck.deck.size() <= 5){  // check if we need to reshuffle
+					deck.reShuffleDeck();
+				}
+
 				System.out.println(currentPlayer.getName() + " drew a card");
 				currentPlayer.playerHand.add(deck.drawTopCard());
+				// make then draw if they have 
 				
 
-				// make then draw if they have 
 			
 			}
-			// make then draw if they have to
 
 			// Card.checkForCardEffects(choosenCard, choosenCard, currentPlayer, deck, currentPlayerIndex, clockWise,
 			// 		players);

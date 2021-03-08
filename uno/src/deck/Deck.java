@@ -7,7 +7,7 @@ import card.Card;
 
 public class Deck {
 
-	public ArrayList<Card> deck = new ArrayList<Card>();
+	public static ArrayList<Card> deck = new ArrayList<Card>();
 	public static ArrayList<Card> discard = new ArrayList<Card>();
 
 	public Deck() {
@@ -63,5 +63,19 @@ public class Deck {
 
 	public static Card getShownCard() {
 		return discard.get(discard.size() - 1);
+	}
+
+	public static void reShuffleDeck()	{   // reshuffle discard into deck saving top discard
+		Card tempTopCard = getShownCard();
+		discard.remove(discard.size()-1); // remove top card and save it
+
+		Collections.shuffle(discard); // shuffle
+		for(int i=0; i<discard.size(); i++){
+			deck.add(discard.get(i));
+		}
+
+		discard.clear();
+		discard.add(tempTopCard);
+		System.out.println("The discard was reshuffled.");
 	}
 }
