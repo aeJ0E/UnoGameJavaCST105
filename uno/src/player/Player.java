@@ -94,4 +94,19 @@ public class Player {
 		return this.playerHand;
 	}
 
+	public static void skipPlayer(boolean clockWise, int currentPlayerIndex, Player[] players)	{
+		if (clockWise) { // change to false for reverse
+			currentPlayerIndex++;
+			if (currentPlayerIndex >= players.length) {
+				currentPlayerIndex -= players.length;
+			}
+		} else {
+			currentPlayerIndex--;
+			if (currentPlayerIndex < 0) { // had to reverse for counter clockwise motion.
+				currentPlayerIndex += players.length;
+			}
+
+	}
+	}
+
 }

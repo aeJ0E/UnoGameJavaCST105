@@ -66,6 +66,12 @@ public class main {
 					currentPlayerIndex += players.length;
 				}
 
+				// How would a skip work? 
+
+				// make methode to move to next player
+				
+
+
 			}
 
 			if (currentPlayer.getPlayerHand().isEmpty()) {
