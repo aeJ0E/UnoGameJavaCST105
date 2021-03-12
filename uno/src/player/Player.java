@@ -63,7 +63,7 @@ public class Player {
 		}
 		if (choosenCard.getColor() == ("wild")) {// check wilds
 			// constructor to set wild color. If i get around to it
-			Card.effectWildChooseColor(topCard);
+			// Card.effectWildChooseColor(topCard);
 			playerHand.remove(choosenCard);
 			return true;
 		}
@@ -71,10 +71,7 @@ public class Player {
 			playerHand.remove(choosenCard);
 			return true;
 		}
-		if (topCard.getColor() == ("wild")) {
-			playerHand.remove(choosenCard);
-			return true;
-		}
+
 
 		System.out.println("You can't place that card"); // if you can't play
 		System.out.println("Top card is: " + Deck.getShownCard());

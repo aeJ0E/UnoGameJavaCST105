@@ -38,7 +38,7 @@ public class Deck {
 			}
 		}
 
-		// Create wild cards
+		// Create wild cards and plus 4's
 		for (int i = 0; i < 4; i++) {
 			this.deck.add(new Card("wild", -1));
 			this.deck.add(new Card("wild", -2));
@@ -71,7 +71,11 @@ public class Deck {
 
 		Collections.shuffle(discard); // shuffle
 		for(int i=0; i<discard.size(); i++){
+			if(discard.get(i).getValue() == -1 || discard.get(i).getValue() == -2){
+				discard.get(i).setColor("wild");
+			}
 			deck.add(discard.get(i));
+			
 		}
 
 		discard.clear();

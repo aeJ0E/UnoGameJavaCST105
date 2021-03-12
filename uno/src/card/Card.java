@@ -21,27 +21,28 @@ public class Card {
 	// create card effect constructors
 
 	// wild
-	public static void effectWildChooseColor(Card topCard) {
+	// public static void effectWildChooseColor(Card topCard, boolean clockWise, Player[] players, int currentPlayerIndex) {
 
-		Scanner playerColorChoice = new Scanner(System.in); // Create a Scanner object
-		System.out.println("please choose a color by typing it in the console. 1: Red, 2: Blue, 3: Yellow, 4: Green");
+	// 	Scanner playerColorChoice = new Scanner(System.in); // Create a Scanner object
+	// 	System.out.println("please choose a color by typing it in the console. 1: Red, 2: Blue, 3: Yellow, 4: Green");
 
-		String color = playerColorChoice.toString();
-		topCard.setColor(color);
-		playerColorChoice.close();
+	// 	String color = playerColorChoice.toString();
+	// 	topCard.setColor(color);
+	// 	playerColorChoice.close();
 
-	}
+	// }
 
 	// plus 4
-	public static void effectPlusFour(Player currentPlayer, Deck deck) {
+	public static void effectPlusFour(Player currentPlayer, Deck deck, boolean clockWise, Player[] players, int currentPlayerIndex) {
+		Player NextPlayer = nextPlayerFunction(currentPlayerIndex, clockWise, players);
 		for (int i = 0; i < 4; i++) {
-			currentPlayer.playerHand.add(deck.drawTopCard());
+			NextPlayer.playerHand.add(deck.drawTopCard());
 		}
 
 	}
 
 	// plus 2
-	public static void effectPlusTwo(Player currentPlayer, Deck deck) {
+	public static void effectPlusTwo(Player currentPlayer, Deck deck, boolean clockWise, Player[] players, int currentPlayerIndex) {
 		for (int i = 0; i < 2; i++) {
 			currentPlayer.playerHand.add(deck.drawTopCard());
 		}
@@ -49,7 +50,24 @@ public class Card {
 	}
 
 	// skip
-	public static void effectSkip(int currentPlayerIndex, boolean clockWise, Player[] players) {
+	public static int effectSkip(int currentPlayerIndex, boolean clockWise, Player[] players) {
+		if (clockWise) { // change to false for reverse
+			currentPlayerIndex++;
+			if (currentPlayerIndex >= players.length) {
+				currentPlayerIndex -= players.length;
+			}
+		} else {
+			currentPlayerIndex--;
+			if (currentPlayerIndex < 0) { // had to reverse for counter clockwise motion.
+				currentPlayerIndex += players.length;
+			}
+
+		}
+		return currentPlayerIndex;
+	}
+
+
+	public static Player nextPlayerFunction(int currentPlayerIndex, boolean clockWise, Player[] players) {
 
 		if (clockWise) { // change to false for reverse
 			currentPlayerIndex++;
@@ -63,10 +81,12 @@ public class Card {
 			}
 
 		}
+		Player nextPlayer = players[currentPlayerIndex];
+		return nextPlayer;
 	}
 
 	// reverse
-	public static void effectReverse(boolean clockWise) {
+	public static boolean effectReverse(boolean clockWise, Player[] players, int currentPlayerIndex) {
 		if (clockWise == false) {
 			clockWise = true;
 		}
@@ -75,6 +95,7 @@ public class Card {
 		} else {
 			System.out.println("you messed something up.");
 		}
+		return clockWise;
 	}
 
 	public String getColor() {
@@ -129,32 +150,33 @@ public class Card {
 		}
 		return color + " " + value;
 	}
+}
 
 	
-	public static void checkForCardEffects(Card topCard, Card choosenCard, Player currentPlayer, Deck deck, int currentPlayerIndex,
-			boolean clockWise, Player[] players) {
-		if (choosenCard.value == -1) {
-			System.out.println(currentPlayer + " played a wild.");
-			Card.effectWildChooseColor(topCard);
-		}
-		if (choosenCard.value == -2) {
-			System.out.println(currentPlayer + " played a plus 4!");
-			Card.effectPlusFour(currentPlayer, deck);
-		}
-		if (choosenCard.value == -3) {
-			System.out.println(currentPlayer + " played a skip. ");
-			effectSkip(currentPlayerIndex, clockWise, players);
+// 	public static void checkForCardEffects(Card topCard, Card choosenCard, Player currentPlayer, Deck deck, int currentPlayerIndex,
+// 			boolean clockWise, Player[] players) {
+// 		if (choosenCard.value == -1) {
+// 			System.out.println(currentPlayer + " played a wild.");
+// 			Card.effectWildChooseColor(topCard, clockWise, players, currentPlayerIndex);
+// 		}
+// 		if (choosenCard.value == -2) {
+// 			System.out.println(currentPlayer + " played a plus 4!");
+// 			Card.effectPlusFour(currentPlayer, deck, clockWise, players, currentPlayerIndex);
+// 		}
+// 		if (choosenCard.value == -3) {
+// 			System.out.println(currentPlayer + " played a skip. ");
+// 			effectSkip(currentPlayerIndex, clockWise, players);
 
-		}
-		if (choosenCard.value == -4) {
-			System.out.println(currentPlayer + " played a reverse.");
-			Card.effectReverse(clockWise);
-		}
-		if (choosenCard.value == -5) {
-			System.out.println(currentPlayer + " played a +2");
-			Card.effectPlusTwo(currentPlayer, deck);
-		}
-		System.out.println("No card effects to play");
-	}
+// 		}
+// 		if (choosenCard.value == -4) {
+// 			System.out.println(currentPlayer + " played a reverse.");
+// 			Card.effectReverse(clockWise, players, currentPlayerIndex);
+// 		}
+// 		if (choosenCard.value == -5) {
+// 			System.out.println(currentPlayer + " played a +2");
+// 			Card.effectPlusTwo(currentPlayer, deck, clockWise, players, currentPlayerIndex);
+// 		}
+// 		System.out.println("No card effects to play");
+// 	}
 
-}
+// }
